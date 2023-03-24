@@ -160,6 +160,7 @@ fetcher = Dependabot::FileFetchers.for_package_manager(package_manager).new(
 files = fetcher.files
 commit = fetcher.commit
 
+
 ##############################
 # Parse the dependency files #
 ##############################
@@ -184,6 +185,8 @@ dependencies.select(&:top_level?).each do |dep|
     options: options,
   )
 
+  p "checker #{checker}"
+
   next if checker.up_to_date?
 
   requirements_to_unlock =
@@ -201,6 +204,8 @@ dependencies.select(&:top_level?).each do |dep|
   updated_deps = checker.updated_dependencies(
     requirements_to_unlock: requirements_to_unlock
   )
+
+  puts "updated_deps: #{updated_deps}"
 
   #####################################
   # Generate updated dependency files #
